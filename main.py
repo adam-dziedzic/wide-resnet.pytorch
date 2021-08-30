@@ -112,7 +112,8 @@ if (args.testOnly):
     checkpoint = torch.load(
         './checkpoint/' + args.dataset + os.sep + file_name + '.t7')
     net = checkpoint['net']
-    torch.save(net, './checkpoint/' + args.dataset + os.sep + file_name + '.pt')
+    torch.save(net.state_dict(),
+               './checkpoint/' + args.dataset + os.sep + file_name + '.pt')
 
     if use_cuda:
         net.cuda()
