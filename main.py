@@ -112,7 +112,7 @@ if (args.testOnly):
     checkpoint = torch.load(
         './checkpoint/' + args.dataset + os.sep + file_name + '.t7')
     net = checkpoint['net']
-    torch.save(net, args.dataset + os.sep + file_name + '.pt')
+    torch.save(net, './checkpoint/' + args.dataset + os.sep + file_name + '.pt')
 
     if use_cuda:
         net.cuda()
@@ -179,7 +179,7 @@ def train(epoch):
                           momentum=0.9, weight_decay=5e-4)
 
     print('\n=> Training Epoch #%d, LR=%.4f' % (
-    epoch, cf.learning_rate(args.lr, epoch)))
+        epoch, cf.learning_rate(args.lr, epoch)))
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         if use_cuda:
             inputs, targets = inputs.cuda(), targets.cuda()  # GPU settings
@@ -227,7 +227,7 @@ def test(epoch):
         # Save checkpoint when best model
         acc = 100. * correct / total
         print("\n| Validation Epoch #%d\t\t\tLoss: %.4f Acc@1: %.2f%%" % (
-        epoch, loss.item(), acc))
+            epoch, loss.item(), acc))
 
         if acc > best_acc:
             print('| Saving Best model...\t\t\tTop1 = %.2f%%' % (acc))
